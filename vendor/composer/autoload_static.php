@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit456e4d5380531ab6950e6e1d2b6ad45a
+class ComposerStaticInitd01cdad51fbf3e9a72cf043e1b7bc6bc
 {
     public static $files = array (
         'c594688b3441835d5575f3085da4a242' => __DIR__ . '/..' . '/webonyx/graphql-php/src/deprecated.php',
@@ -281,6 +281,11 @@ class ComposerStaticInit456e4d5380531ab6950e6e1d2b6ad45a
         'WPGraphQL\\Type\\TermObject\\Mutation\\TermObjectUpdate' => __DIR__ . '/../..' . '/src/Type/TermObject/Mutation/TermObjectUpdate.php',
         'WPGraphQL\\Type\\TermObject\\TermObjectQuery' => __DIR__ . '/../..' . '/src/Type/TermObject/TermObjectQuery.php',
         'WPGraphQL\\Type\\TermObject\\TermObjectType' => __DIR__ . '/../..' . '/src/Type/TermObject/TermObjectType.php',
+        'WPGraphQL\\Type\\ThemeMods\\Mutation\\ThemeModsMutation' => __DIR__ . '/../..' . '/src/Type/ThemeMods/Mutation/ThemeModsMutation.php',
+        'WPGraphQL\\Type\\ThemeMods\\Mutation\\ThemeModsUpdate' => __DIR__ . '/../..' . '/src/Type/ThemeMods/Mutation/ThemeModsUpdate.php',
+        'WPGraphQL\\Type\\ThemeMods\\ThemeModsFields' => __DIR__ . '/../..' . '/src/Type/ThemeMods/ThemeModsFields.php',
+        'WPGraphQL\\Type\\ThemeMods\\ThemeModsQuery' => __DIR__ . '/../..' . '/src/Type/ThemeMods/ThemeModsQuery.php',
+        'WPGraphQL\\Type\\ThemeMods\\ThemeModsType' => __DIR__ . '/../..' . '/src/Type/ThemeMods/ThemeModsType.php',
         'WPGraphQL\\Type\\Theme\\Connection\\ThemeConnectionDefinition' => __DIR__ . '/../..' . '/src/Type/Theme/Connection/ThemeConnectionDefinition.php',
         'WPGraphQL\\Type\\Theme\\Connection\\ThemeConnectionResolver' => __DIR__ . '/../..' . '/src/Type/Theme/Connection/ThemeConnectionResolver.php',
         'WPGraphQL\\Type\\Theme\\ThemeType' => __DIR__ . '/../..' . '/src/Type/Theme/ThemeType.php',
@@ -319,9 +324,9 @@ class ComposerStaticInit456e4d5380531ab6950e6e1d2b6ad45a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit456e4d5380531ab6950e6e1d2b6ad45a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit456e4d5380531ab6950e6e1d2b6ad45a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit456e4d5380531ab6950e6e1d2b6ad45a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd01cdad51fbf3e9a72cf043e1b7bc6bc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd01cdad51fbf3e9a72cf043e1b7bc6bc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd01cdad51fbf3e9a72cf043e1b7bc6bc::$classMap;
 
         }, null, ClassLoader::class);
     }
