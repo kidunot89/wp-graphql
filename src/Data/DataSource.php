@@ -926,6 +926,76 @@ class DataSource {
 	}
 
 	/**
+	 * Create widget data 
+	 *
+	 * @since 0.0.31
+	 * @param array $widget
+	 * @return array
+	 */
+	public static function create_widget_data_object( $widget ) {
+		$widget_data = [
+			'id' => $widget['id'],
+			'name' => $widget['name'],
+			'widget_description' => ( ! empty( $widget['description'] ) ) ? $widget['description'] : '',
+			'type' => $widget['callback'][0]->id_base,
+			'is_widget' => true,
+		];
+
+		/**
+		 * The name of the option in the database is the name of the widget class.
+		 */
+		$option_name = $widget['callback'][0]->option_name;
+
+		/**
+		 * Widget data is stored as an associative array. To get the right data we need to get the right key
+		 * which is stored in $wp_registered_widgets
+		 */
+		$key = $widget['params'][0]['number'];
+		
+		/**
+		 * Retrieve widget data if exist
+		 */
+		if( $key > -1 ) {
+			$widget_data += get_option( $option_name )[ $key ];
+		}
+
+		return $widget_data;
+	}
+
+	/**
+	 * Return an array of data for all active widget types
+	 *
+	 * @return array
+	 */
+	public static function get_active_widget_types() {
+		global $wp_registered_widgets;
+
+		/**
+		 * Holds the query data to return
+		 */
+		$types = [];
+
+		/**
+		 * Loop through registered widgets
+		 */
+		foreach( $wp_registered_widgets as $widget ) {
+			$widget_data = self::create_widget_data_object( $widget );
+			$type = $widget_data['type'];
+
+			if( ! empty( $types[$type] ) ) continue;
+
+			unset( $widget_data['id'] );
+			unset( $widget_data['name'] );
+			unset( $widget_data['type'] );
+			unset( $widget_data['is_widget'] );
+			
+			$types[$type] = $widget_data;
+		}
+
+		return $types;
+	}
+
+	/**
 	 * Retrieves and formats theme modification data
 	 *
 	 * @param array|null $theme_mods - array of raw theme modification data
@@ -999,7 +1069,4 @@ class DataSource {
 
 	}
 
-	public static function get_attachment_id_by_url( $attachment_url ) {
-
-	}
 }
