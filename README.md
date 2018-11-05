@@ -218,7 +218,7 @@ Notes:
    ```
    ./run-docker-local-app.sh
    ```
-1. Visit http://localhost:80.
+1. Visit http://localhost:8000.
    
 
 #### Updating WP Docker image
