@@ -1,9 +1,4 @@
 <?php
-/**
- * This class organizes the registration of connections to Menus
- *
- * @package WPGraphQL\Connection
- */
 
 namespace WPGraphQL\Connection;
 
@@ -12,11 +7,16 @@ use WPGraphQL\Data\DataSource;
 
 /**
  * Class Menus
+ *
+ * This class organizes the registration of connections to Menus
+ *
+ * @package WPGraphQL\Connection
  */
 class Menus {
 
 	/**
 	 * Registers connections to Menus
+	 *
 	 */
 	public static function register_connections() {
 

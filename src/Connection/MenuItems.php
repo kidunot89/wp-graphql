@@ -1,9 +1,4 @@
 <?php
-/**
- * This class organizes registration of connections to MenuItems
- *
- * @package WPGraphQL\Connection
- */
 
 namespace WPGraphQL\Connection;
 
@@ -11,12 +6,17 @@ use WPGraphQL\Data\Connection\MenuItemConnectionResolver;
 use WPGraphQL\Data\DataSource;
 
 /**
- * Class Menu_Items
+ * Class MenuItems
+ *
+ * This class organizes registration of connections to MenuItems
+ *
+ * @package WPGraphQL\Connection
  */
-class Menu_Items {
+class MenuItems {
 
 	/**
 	 * Register connections to MenuItems
+	 *
 	 */
 	public static function register_connections() {
 
@@ -54,7 +54,7 @@ class Menu_Items {
 	/**
 	 * Given an array of $args, returns the args for the connection with the provided args merged
 	 *
-	 * @param array $args  Connection configurations.
+	 * @param array $args
 	 *
 	 * @return array
 	 */

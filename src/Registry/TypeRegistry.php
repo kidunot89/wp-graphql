@@ -1,9 +1,4 @@
 <?php
-/**
- * This class maintains the registry of Types used in the GraphQL Schema
- *
- * @package WPGraphQL\Registry
- */
 
 namespace WPGraphQL\Registry;
 
@@ -13,16 +8,16 @@ use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use WPGraphQL\Connection\Comments;
-use WPGraphQL\Connection\Content_Types;
-use WPGraphQL\Connection\Menu_Items;
+use WPGraphQL\Connection\ContentTypes;
+use WPGraphQL\Connection\MenuItems;
 use WPGraphQL\Connection\Menus;
 use WPGraphQL\Connection\Plugins;
-use WPGraphQL\Connection\Post_Objects;
+use WPGraphQL\Connection\PostObjects;
 use WPGraphQL\Connection\Revisions;
 use WPGraphQL\Connection\Taxonomies;
-use WPGraphQL\Connection\Term_Objects;
+use WPGraphQL\Connection\TermObjects;
 use WPGraphQL\Connection\Themes;
-use WPGraphQL\Connection\User_Roles;
+use WPGraphQL\Connection\UserRoles;
 use WPGraphQL\Connection\Users;
 use WPGraphQL\Data\DataSource;
 use WPGraphQL\Mutation\CommentCreate;
@@ -126,6 +121,10 @@ use WPGraphQL\Type\WPUnionType;
 
 /**
  * Class TypeRegistry
+ *
+ * This class maintains the registry of Types used in the GraphQL Schema
+ *
+ * @package WPGraphQL\Registry
  */
 class TypeRegistry {
 
@@ -280,16 +279,16 @@ class TypeRegistry {
 		 */
 		Comments::register_connections();
 		Menus::register_connections();
-		Menu_Items::register_connections();
+		MenuItems::register_connections();
 		Plugins::register_connections();
-		Post_Objects::register_connections();
-		Content_Types::register_connections();
+		PostObjects::register_connections();
+		ContentTypes::register_connections();
 		Revisions::register_connections( $this );
 		Taxonomies::register_connections();
-		Term_Objects::register_connections();
+		TermObjects::register_connections();
 		Themes::register_connections();
 		Users::register_connections();
-		User_Roles::register_connections();
+		UserRoles::register_connections();
 
 		/**
 		 * Register core mutations

@@ -1,9 +1,4 @@
 <?php
-/**
- * This class organizes the registration of connections to PostObjects
- *
- * @package WPGraphQL\Connection
- */
 
 namespace WPGraphQL\Connection;
 
@@ -11,9 +6,13 @@ use WPGraphQL\Data\Connection\PostObjectConnectionResolver;
 use WPGraphQL\Data\DataSource;
 
 /**
- * Class Post_Objects
+ * Class PostObjects
+ *
+ * This class organizes the registration of connections to PostObjects
+ *
+ * @package WPGraphQL\Connection
  */
-class Post_Objects {
+class PostObjects {
 
 	/**
 	 * Registers the various connections from other Types to PostObjects
@@ -77,7 +76,7 @@ class Post_Objects {
 				$allowed_taxonomies = \WPGraphQL::get_allowed_taxonomies();
 				if ( ! empty( $allowed_taxonomies ) && is_array( $allowed_taxonomies ) ) {
 					foreach ( $allowed_taxonomies as $taxonomy ) {
-						// If the taxonomy is in the array of taxonomies registered to the post_type.
+						// If the taxonomy is in the array of taxonomies registered to the post_type
 						if ( in_array( $taxonomy, get_object_taxonomies( $post_type_object->name ), true ) ) {
 							$tax_object = get_taxonomy( $taxonomy );
 							register_graphql_connection(
@@ -136,8 +135,8 @@ class Post_Objects {
 	 * registering a connection.
 	 *
 	 * @param \WP_Post_Type $post_type_object The post type object for the post_type having a
-	 *                                        connection registered to it.
-	 * @param array         $args             The custom args to modify the connection registration.
+	 *                                        connection registered to it
+	 * @param array         $args             The custom args to modify the connection registration
 	 *
 	 * @return array
 	 */
@@ -168,8 +167,9 @@ class Post_Objects {
 	/**
 	 * Given an optional array of args, this returns the args to be used in the connection
 	 *
-	 * @param array         $args             The args to modify the defaults.
-	 * @param \WP_Post_Type $post_type_object The post type the connection is going to.
+	 *
+	 * @param array         $args             The args to modify the defaults
+	 * @param \WP_Post_Type $post_type_object The post type the connection is going to
 	 *
 	 * @return array
 	 */
@@ -257,7 +257,7 @@ class Post_Objects {
 			],
 
 			/**
-			 * "post_type"
+			 * post_type
 			 *
 			 * NOTE: post_type is intentionally not supported on connections to Single post types as
 			 * the connection to the singular Post Type already sets this argument as the entry
@@ -401,7 +401,7 @@ class Post_Objects {
 			}
 
 			$connected_taxonomies = get_object_taxonomies( $post_type_object->name );
-			if ( ! empty( $connected_taxonomies ) && in_array( 'category', $connected_taxonomies, true ) ) {
+			if ( ! empty( $connected_taxonomies ) && in_array( 'category', $connected_taxonomies ) ) {
 				/**
 				 * Category $args
 				 *
@@ -430,7 +430,7 @@ class Post_Objects {
 				];
 			}
 
-			if ( ! empty( $connected_taxonomies ) && in_array( 'post_tag', $connected_taxonomies, true ) ) {
+			if ( ! empty( $connected_taxonomies ) && in_array( 'post_tag', $connected_taxonomies ) ) {
 				/**
 				 * Tag $args
 				 *
