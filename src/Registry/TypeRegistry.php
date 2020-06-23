@@ -1001,6 +1001,9 @@ class TypeRegistry {
 			$output_fields = array_merge( $config['outputFields'], $output_fields );
 		}
 
+		// Add passive mutation output fields to the mutation.
+		$output_fields = apply_filters( 'graphql_passive_mutation_output_fields', $output_fields, $mutation_name );
+
 		$this->register_object_type(
 			$mutation_name . 'Payload',
 			[
@@ -1016,6 +1019,10 @@ class TypeRegistry {
 				],
 			],
 		];
+
+		// Add passive mutation input fields to the mutation.
+		$input_fields = apply_filters( 'graphql_passive_mutation_input_fields', $input_fields, $mutation_name );
+
 
 		if ( ! empty( $config['inputFields'] ) && is_array( $config['inputFields'] ) ) {
 			$input_fields = array_merge( $config['inputFields'], $input_fields );
@@ -1050,8 +1057,14 @@ class TypeRegistry {
 						// Translators: The placeholder is the name of the mutation
 						throw new \Exception( sprintf( __( 'The resolver for the mutation %s is not callable', 'wp-graphql' ), $mutation_name ) );
 					}
+					// Run passive mutations.
+					$this->mutate_passively( $mutation_name, $args['input'], $context, $info );
 					$payload                     = call_user_func( $mutateAndGetPayload, $args['input'], $context, $info );
 					$payload['clientMutationId'] = $args['input']['clientMutationId'];
+
+					// Add passive mutation payloads
+					$payload = apply_filters( 'graphql_passive_mutation_payload', $payload );
+					remove_all_filters( 'graphql_passive_mutation_payload' );
 
 					return $payload;
 				},
@@ -1092,6 +1105,18 @@ class TypeRegistry {
 		}
 
 		return Type::listOf( $type );
+	}
+
+	/**
+	 * Executes passive mutations
+	 *
+	 * @param string      $mutation_name  Name of mutation being executed.
+	 * @param array       $input          Mutation input.
+	 * @param AppContext  $context        AppContext instance.
+	 * @param ResolveInfo $info           ResolveInfo instance.
+	 */
+	public function mutate_passively( $args, $context, $info ) {
+		do_action( 'graphql_mutate_passively', ...func_get_args() );
 	}
 
 }

@@ -282,6 +282,65 @@ function register_graphql_mutation( $mutation_name, $config ) {
 }
 
 /**
+ * Given a Config array, this adds a passive mutation to all mutations.
+ *
+ * @param array  $config        The config for the mutation
+ */
+function register_graphql_passive_mutation( array $config ) {
+	$excluded = ! empty ( $config['excludedMutations'] ) ? $config['excludedMutations'] : [];
+
+	if ( empty( $config['inputFields'] ) ) {
+		return;
+	}
+
+	$passive_input = $config['inputFields'];
+	add_filter(
+		'graphql_passive_mutation_input_fields',
+		function( array $input_fields, $mutation_name ) use( $excluded, $passive_input ) {
+			if ( ! in_array( $mutation_name, $excluded, true ) ) {
+				return array_merge( $input_fields, $passive_input );
+			}
+
+			return $input_fields;
+		},
+		10,
+		2
+	);
+
+	if ( ! empty( $config['outputFields'] ) ) {
+		$passive_output = $config['outputFields'];
+		add_filter(
+			'graphql_passive_mutation_output_fields',
+			function( array $output_fields, $mutation_name ) use( $excluded, $passive_output ) {
+				if ( ! in_array( $mutation_name, $excluded, true ) ) {
+					return array_merge( $output_fields, $passive_output );
+				}
+	
+				return $output_fields;
+			},
+			10,
+			2
+		);
+	}
+
+	if ( empty( $config['mutateQuietly'] ) ) {
+		return;
+	}
+
+	$quiet_mutation = $config['mutateQuietly'];
+	add_action(
+		'graphql_mutate_passively',
+		function( $mutation_name, ...$args ) use( $excluded, $quiet_mutation ) {
+			if ( ! in_array( $mutation_name, $excluded, true ) ) {
+				$quiet_mutation( ...$args );
+			}
+		},
+		10,
+		4
+	);
+}
+
+/**
  * Whether a GraphQL request is in action or not. This is determined by the WPGraphQL Request
  * class being initiated. True while a request is in action, false after a request completes.
  *
